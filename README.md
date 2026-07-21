@@ -10,6 +10,14 @@ An interactive **Streamlit web application** allows users to enter news articles
 
 ---
 
+## 🌐 Live Demo
+
+Try the deployed application here:
+
+🔗 **https://harshitdubey07-fake-news-detection-app-crl99e.streamlit.app/**
+
+---
+
 ## 🚀 Features
 
 - Exploratory Data Analysis (EDA)
