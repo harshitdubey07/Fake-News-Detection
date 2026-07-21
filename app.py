@@ -47,30 +47,50 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("📰 Fake News Detection")
+st.title("📰 Fake News Detection System")
 
-st.write(
-    "Enter a news article below and the trained Machine Learning model will predict whether it is **Fake** or **Real**."
+st.markdown(
+"""
+Detect whether a news article is **Fake** or **Real** using a Machine Learning model trained on thousands of news articles.
+
+Fill in the details below and click **Predict**.
+"""
 )
 
+st.divider()
+
+title = st.text_input("📰 News Title")
+
 news = st.text_area(
-    "Enter News Text",
+    "📄 News Article",
     height=250
 )
 
 if st.button("Predict"):
 
-    if news.strip() == "":
-        st.warning("Please enter some news text.")
+    if title.strip() == "" or news.strip() == "":
+        st.warning("Please enter both the news title and the news article.")
     else:
 
-        cleaned = preprocess_text(news)
+        content = title + " " + news
+
+        cleaned = preprocess_text(content)
 
         vector = vectorizer.transform([cleaned])
 
+
+        
         prediction = model.predict(vector)
+
+        probability = model.predict_proba(vector)
+
+        confidence = probability.max() * 100
 
         if prediction[0] == 0:
             st.error("🚨 Fake News")
         else:
             st.success("✅ Real News")
+
+        st.progress(confidence / 100)
+
+        st.info(f"Confidence Score: **{confidence:.2f}%**")
